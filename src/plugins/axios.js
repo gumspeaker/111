@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
-/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-underscore-dangle */
 import Vue from 'vue';
 import axios from 'axios';
@@ -20,23 +19,19 @@ const config = {
 const _axios = axios.create(config);
 
 _axios.interceptors.request.use(
-  (config) =>
-    // Do something before request is sent
-    config,
-  (error) =>
-    // Do something with request error
-    Promise.reject(error),
+  (config) => config,
+  // Do something before request is sent
+  (error) => Promise.reject(error),
+  // Do something with request error
 
 );
 
 // Add a response interceptor
 _axios.interceptors.response.use(
-  (response) =>
-    // Do something with response data
-    response,
-  (error) =>
-    // Do something with response error
-    Promise.reject(error),
+  (response) => response,
+  // Do something with response data
+  (error) => Promise.reject(error),
+  // Do something with response error
 
 );
 

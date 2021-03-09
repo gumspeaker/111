@@ -1,3 +1,4 @@
-const { mock } = require('mockjs');
+import { mock } from 'mockjs';
 
-mock('', '');
+mock('user/login', 'post', {
+});
