@@ -51,10 +51,8 @@ export default {
   },
   methods: {
     async login() {
-      // const data = await userLogin(this.form);
-      userLogin(this.form).then((res) => {
-        console.log(res);
-      });
+      const data = await userLogin(this.form);
+      console.log(data);
     },
     async Register() {
       const data = await userRegister(this.form);

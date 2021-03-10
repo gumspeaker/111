@@ -6,7 +6,7 @@ import demoApi from './demo';
 const mocks = [
   {
     intercept: true, // 你可能需要一个开关，来使模拟请求与真实请求并存
-    fetchs: demoApi,
+    fetches: demoApi,
   },
 ];
 // 抄来一个解析地址栏参数解析函数
@@ -50,13 +50,14 @@ export default function mockXHR(...arg) {
       } else {
         result = respond;
       }
+      // console.log(result);
       return Mock.mock(result);
     };
   }
 
   for (const i of mocks) {
     if (i.intercept) {
-      for (const fetch of i.fetchs) {
+      for (const fetch of i.fetches) {
         Mock.mock(new RegExp(fetch.url), fetch.type || 'get', XHR2ExpressReqWrap(fetch.response));
       }
     }

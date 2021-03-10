@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import './plugins/axios';
 import {
-  Button, Input, Checkbox, FormModel, Icon, Card,
+  Button, Input, Checkbox, FormModel, Icon, Card, message,
 } from 'ant-design-vue';
 import Permission from './components/Permission.vue';
 import App from './App.vue';
@@ -19,6 +19,7 @@ Vue.use(Permission)
   .use(Checkbox)
   .use(FormModel)
   .use(Card)
+  .use(message)
   .use(Icon);
 Vue.config.productionTip = false;
 

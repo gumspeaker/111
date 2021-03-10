@@ -21,18 +21,17 @@ export default [
     type: 'post',
     // 可以是function也可以是其他数组
     // res.body就是我们传入到接口的数据，我们可以在这里做些逻辑操作
-    response: (res) => {
-      console.log(res);
-      const userInformation = userList.find((item) => item.userName === res.username
-        && item.password === res.password);
+    response: ({ body }) => {
+      console.log(body);
+      const userInformation = userList.find((item) => item.userName === body.username
+        && item.password === body.password);
       const data = userInformation || '登录账号密码错误';
-      // res包含完整的请求头信息
+      // 使用return返回前端需要的数据
       return {
         code: 200,
         message: '操作成功',
         data,
       };
-      // 使用return返回前端需要的数据
     },
   }, {
     url: '/Api/user/Register',

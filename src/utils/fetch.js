@@ -1,15 +1,30 @@
-import fetch from './request';
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-bitwise */
+import { stringify } from 'qs';
+import { _axios as axios } from '../plugins/axios';
 
-export function update(api, params) {
-  return fetch(api, {
-    body: params,
-    // 这里注意一下，这是xxx-www-form-data的格式，如果日后要使用json格式的context-type就得把stringify去掉
-  });
-}
+export default function (url, options = {}) {
+  const defaultMethod = 'post';
+  const conf = { method: defaultMethod, ...options };
+  const {
+    method, mock, body, download,
+  } = conf;
+  // method = method.toLowerCase();
+  const payload = ['post', 'put', 'patch'].includes(method) ? 'data' : 'params';
+  // 如果是mock数据就在最后加上__mock__
+  if (mock) url += `${~url.indexOf('?') ? '&' : '?'}__mock__`;
 
-export function detail(api, params) {
-  return fetch(api, {
-    method: 'get',
-    body: params,
-  });
+  const config = {
+    ...conf,
+    url,
+    method,
+    [payload]: body,
+    ...options,
+  };
+
+  if (download) {
+    window.open(`${url}?${stringify(body)}`);
+    return Promise.resolve(true);
+  }
+  return axios.request(config);
 }
