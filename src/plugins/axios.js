@@ -46,7 +46,7 @@ _axios.interceptors.response.use(
       // })
       return Promise.reject((new Error('error')));
     }
-    return res;
+    return res.data;
   },
   (err) => {
     const { config } = err;

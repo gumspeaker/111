@@ -22,7 +22,6 @@ export default [
     // 可以是function也可以是其他数组
     // res.body就是我们传入到接口的数据，我们可以在这里做些逻辑操作
     response: ({ body }) => {
-      console.log(body);
       const userInformation = userList.find((item) => item.userName === body.username
         && item.password === body.password);
       const data = userInformation || '登录账号密码错误';
