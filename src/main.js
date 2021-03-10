@@ -6,7 +6,11 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import 'ant-design-vue/lib/date-picker/style/css';
+import mockXHR from './mock/index';
 
+if (process.env.NODE_ENV === 'development') {
+  mockXHR();
+}
 Vue.use(Authorized);
 Vue.use(Button);
 Vue.config.productionTip = false;

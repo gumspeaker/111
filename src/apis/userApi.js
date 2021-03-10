@@ -1,0 +1,11 @@
+import { update, detail } from '../utils/fetch';
+
+export const userLogin = (username, password) => {
+  update('/Api/user/login', { username, password });
+};
+export const userRegister = (username, password) => {
+  update('/Api/user/Register', { username, password });
+};
+export function FindUserByType(type) {
+  detail('/Api/user/Register', type);
+}
