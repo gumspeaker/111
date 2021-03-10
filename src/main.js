@@ -19,10 +19,9 @@ Vue.use(Permission)
   .use(Checkbox)
   .use(FormModel)
   .use(Card)
-  .use(message)
   .use(Icon);
 Vue.config.productionTip = false;
-
+Vue.prototype.$message = message;
 new Vue({
   router,
   store,

@@ -51,8 +51,14 @@ export default {
   },
   methods: {
     async login() {
-      const data = await userLogin(this.form);
-      console.log(data);
+      // eslint-disable-next-line no-unused-vars
+      const { code, data, message } = await userLogin(this.form);
+      if (data !== '登录账号密码错误') {
+        this.$store.commit('changeStateToLogin', data);
+        this.$router.push('/home');
+      } else {
+        this.$message.info(data);
+      }
     },
     async Register() {
       const data = await userRegister(this.form);
