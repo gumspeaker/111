@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-syntax */
 import Mock from 'mockjs';
 import demoApi from './demo';
@@ -24,25 +25,23 @@ export function param2Obj(url) {
   );
 }
 export default function mockXHR(...arg) {
-  Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send;
-  Mock.XHR.prototype.send = function send() {
-    if (this.custom.xhr) {
-      this.custom.xhr.withCredentials = this.withCredentials || false;
+  // Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send;
+  // Mock.XHR.prototype.send = function send() {
+  //   if (this.custom.xhr) {
+  //     this.custom.xhr.withCredentials = this.withCredentials || false;
 
-      if (this.responseType) {
-        this.custom.xhr.responseType = this.responseType;
-      }
-    }
-    this.proxy_send(...arg);
-  };
+  //     if (this.responseType) {
+  //       this.custom.xhr.responseType = this.responseType;
+  //     }
+  //   }
+  //   this.proxy_send(...arg);
+  // };
   // mock执行函数
   function XHR2ExpressReqWrap(respond) {
     return (options) => {
       let result = null;
       if (respond instanceof Function) {
         const { body, type, url } = options;
-        console.log(body);
-        // https://expressjs.com/en/4x/api.html#req
         result = respond({
           method: type,
           body: JSON.parse(body),

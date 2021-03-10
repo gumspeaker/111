@@ -7,5 +7,5 @@ export const userRegister = (username, password) => {
   update('/Api/user/Register', { username, password });
 };
 export const FindUserByType = (type) => {
-  detail('/Api/user/Register', { type });
+  detail('/Api/user/Register', type);
 };

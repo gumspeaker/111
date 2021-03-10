@@ -1,9 +1,8 @@
-import { stringify } from 'qs';
 import fetch from './request';
 
 export function update(api, params) {
   return fetch(api, {
-    body: stringify(params),
+    body: params,
     // 这里注意一下，这是xxx-www-form-data的格式，如果日后要使用json格式的context-type就得把stringify去掉
   });
 }

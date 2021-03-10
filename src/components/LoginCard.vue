@@ -3,10 +3,9 @@
     <div class="header">
       <span class="title">{{ type }}</span>
     </div>
-    <a-form-model :model="form"
-                  @submit.native.prevent="handleSubmit">
+    <a-form-model :model="form">
       <a-form-model-item style="form-style">
-        <a-input v-model="form.user"
+        <a-input v-model="form.username"
                  placeholder="Username">
           <a-icon slot="prefix"
                   type="user"
@@ -25,10 +24,11 @@
       <a-form-model-item>
         <a-button type="primary"
                   @click="login"
-                  :disabled="form.user === '' || form.password === ''">
+                  :disabled="form.username === '' || form.password === ''">
           登录
         </a-button>
-        <a-button :disabled="form.user === '' || form.password === ''">
+        <a-button :disabled="form.username === '' || form.password === ''"
+                  @click="Register">
           注册
         </a-button>
       </a-form-model-item>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { userLogin } from '../apis/userApi';
+import { userLogin, userRegister } from '../apis/userApi';
 
 export default {
   data() {
@@ -49,10 +49,15 @@ export default {
       },
     };
   },
-  method: {
-    async login(event) {
-      console.log(event);
-      const data = await userLogin(this.form);
+  methods: {
+    async login() {
+      // const data = await userLogin(this.form);
+      userLogin(this.form).then((res) => {
+        console.log(res);
+      });
+    },
+    async Register() {
+      const data = await userRegister(this.form);
       console.log(data);
     },
   },
