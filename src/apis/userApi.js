@@ -6,6 +6,6 @@ export const userLogin = (username, password) => {
 export const userRegister = (username, password) => {
   update('/Api/user/Register', { username, password });
 };
-export function FindUserByType(type) {
-  detail('/Api/user/Register', type);
-}
+export const FindUserByType = (type) => {
+  detail('/Api/user/Register', { type });
+};

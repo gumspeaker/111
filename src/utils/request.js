@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-bitwise */
 import { stringify } from 'qs';
 import { _axios as axios } from '../plugins/axios';
@@ -10,6 +11,7 @@ export default function (url, options = {}) {
   } = conf;
   // method = method.toLowerCase();
   const payload = ['post', 'put', 'patch'].includes(method) ? 'data' : 'params';
+  // 如果是mock数据就在最后加上__mock__
   if (mock) url += `${~url.indexOf('?') ? '&' : '?'}__mock__`;
 
   const config = {

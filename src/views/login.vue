@@ -1,68 +1,33 @@
 <template>
-  <div>
-    <div class="container">
-      <div class="login-container">
-        <div class="top">
-          <div class="header">
-            <span class="title">{{ title }}</span>
-          </div>
-        </div>
-        <a-form id="components-form-demo-normal-login"
-                :form="form"
-                class="login-form"
-                @submit="handleSubmit">
-          <a-form-item>
-            <a-input v-decorator="[
-              'username',
-              {
-                rules: [{ required: true, message: '请输入您的用户名!' }]
-              }
-            ]"
-                     placeholder="Username">
-              <a-icon slot="prefix"
-                      type="user"
-                      style="color: rgba(0,0,0,.25)" />
-            </a-input>
-          </a-form-item>
-          <a-form-item>
-            <a-input v-decorator="[
-              'password',
-              {
-                rules: [{ required: true, message: '请输入您的密码!' }]
-              }
-            ]"
-                     type="password"
-                     placeholder="Password">
-              <a-icon slot="prefix"
-                      type="lock"
-                      style="color: rgba(0,0,0,.25)" />
-            </a-input>
-          </a-form-item>
-          <a-form-item>
-            <a-checkbox v-decorator="[
-              'remember',
-              {
-                valuePropName: 'checked',
-                initialValue: true
-              }
-            ]">
-              记住我
-            </a-checkbox>
-            <a-button type="primary"
-                      html-type="submit"
-                      class="login-form-button">
-              登陆
-            </a-button>
-          </a-form-item>
-        </a-form>
-      </div>
-    </div>
+  <div class="login-container">
+    <LoginCard />
   </div>
 </template>
 
 <script>
-export default {};
+import LoginCard from '../components/LoginCard.vue';
+
+export default {
+  data() {
+    return {
+      type: '登录',
+    };
+  },
+  components: {
+    LoginCard,
+  },
+  methods: {},
+};
 </script>
 
 <style>
+.login-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  bottom: 20%;
+}
 </style>

@@ -35,12 +35,13 @@ export default function mockXHR(...arg) {
     }
     this.proxy_send(...arg);
   };
-
+  // mock执行函数
   function XHR2ExpressReqWrap(respond) {
     return (options) => {
       let result = null;
       if (respond instanceof Function) {
         const { body, type, url } = options;
+        console.log(body);
         // https://expressjs.com/en/4x/api.html#req
         result = respond({
           method: type,
