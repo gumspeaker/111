@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 
-const projectList = Mock.mock({
+const userList = Mock.mock({
   'list|20': [{
     name: '@cname', // 中文名
     account: '@word', // 英文单词
@@ -16,7 +16,7 @@ export default [
     response: (res) => {
       let filterList = [];
       if (res.body.key) {
-        filterList = projectList.filter((i) => i.name === res.body.key);
+        filterList = userList.filter((i) => i.name === res.body.key);
       }
 
       // 没错，你应该已经猜到了，res.body就是我们传入到接口的数据，我们可以在这里做些逻辑操作

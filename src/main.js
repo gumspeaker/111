@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import './plugins/axios';
-import { Button } from 'ant-design-vue';
-import Authorized from './components/Authorized.vue';
+import { Button, Input } from 'ant-design-vue';
+import Permission from './components/Permission.vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -11,8 +11,8 @@ import mockXHR from './mock/index';
 if (process.env.NODE_ENV === 'development') {
   mockXHR();
 }
-Vue.use(Authorized);
-Vue.use(Button);
+Vue.use(Permission);
+Vue.use(Button).use(Input);
 Vue.config.productionTip = false;
 
 new Vue({
