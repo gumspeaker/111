@@ -3,21 +3,18 @@ class Timer {
     this.time = time;
     this.fn = fn;
     this.timer = null;
+    this.reStart = this.reStart.bind(this);
+    this.stop = this.stop.bind(this);
   }
 
   start() {
     this.timer = setTimeout(() => {
-      this.fn();
+      this.fn.apply(this);
     }, this.time);
   }
 
-  // get timer() {
-  //   return this.timer;
-  // }
-
   reStart() {
     if (this.timer) {
-      console.log(this.timer);
       clearTimeout(this.timer);
       this.start();
     }

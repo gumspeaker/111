@@ -20,9 +20,11 @@ export default {
   watch: {
     isLogin(newVal) {
       if (newVal === true) {
-        this.timer = new Timer(this.loginOut, 30 * 1000);
+        console.log(newVal);
+        this.timer = new Timer(this.loginOut, 5000);
         this.timer.start();
         ['click', 'mousedown', 'mousemove', 'mouseup'].forEach((i) => {
+          // 绑定在timer
           window.addEventListener(i, this.timer.reStart);
         });
       }
