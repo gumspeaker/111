@@ -5,7 +5,7 @@ import authMap from '../utils/auth';
 
 Vue.use(Vuex);
 const defaultUserMessage = {
-  userName: '',
+  username: '',
   userRole: '',
   authlist: [],
   isLogin: false,
@@ -18,10 +18,13 @@ export default new Vuex.Store({
     authlist(state) {
       return state.authlist;
     },
+    userRole(state) {
+      return state.userRole;
+    },
   },
   mutations: {
-    changeStateToLogin(state, { userName, role }) {
-      state.userName = userName;
+    changeStateToLogin(state, { username, role }) {
+      state.username = username;
       state.userRole = role;
       state.authlist = authMap.get(role);
       state.isLogin = true;

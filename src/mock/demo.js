@@ -10,9 +10,9 @@
 //   }],
 // });
 const userList = [
-  { userName: 'xzh', password: '123', role: 'admin' },
-  { userName: 'xzh1', password: '123', role: 'user' },
-  { userName: 'admin', password: 'admin', role: 'admin' },
+  { username: 'xzh', password: '123', role: 'admin' },
+  { username: 'xzh1', password: '123', role: 'user' },
+  { username: 'admin', password: 'admin', role: 'admin' },
 
 ];
 const TopFlowByTime = {
@@ -26,7 +26,7 @@ export default [
     // 可以是function也可以是其他数组
     // res.body就是我们传入到接口的数据，我们可以在这里做些逻辑操作
     response: ({ body }) => {
-      const userInformation = userList.find((item) => item.userName === body.username
+      const userInformation = userList.find((item) => item.username === body.username
         && item.password === body.password);
       const data = userInformation || '登录账号密码错误';
       // 使用return返回前端需要的数据
@@ -48,7 +48,7 @@ export default [
     },
   },
   {
-    url: '/Api/topFlow',
+    url: '/Api/flow/Top',
     type: 'get',
     response() {
       return {
@@ -60,11 +60,13 @@ export default [
   },
   {
     url: '/Api/user/userList',
-    type: 'post',
+    type: 'get',
     // 可以是function也可以是其他数组
     // res.body就是我们传入到接口的数据，我们可以在这里做些逻辑操作
-    response: ({ body }) => {
-      const { role } = body;
+    response: ({ query }) => {
+      console.log(query);
+      const { role } = query;
+
       const data = [];
       if (role === 'admin') {
         data.push(...userList);

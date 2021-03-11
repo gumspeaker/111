@@ -42,6 +42,7 @@ export default function mockXHR(...arg) {
       let result = null;
       if (respond instanceof Function) {
         const { body, type, url } = options;
+        console.log(url);
         result = respond({
           method: type,
           body: JSON.parse(body),
