@@ -21,6 +21,9 @@ export default new Vuex.Store({
     userRole(state) {
       return state.userRole;
     },
+    isLogin(state) {
+      return state.isLogin;
+    },
   },
   mutations: {
     changeStateToLogin(state, { username, role }) {

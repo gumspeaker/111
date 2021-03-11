@@ -15,6 +15,7 @@
       <a-form-model-item>
         <a-input v-model="form.password"
                  type="password"
+                 autocomplete
                  placeholder="Password"
                  @keydown.enter="login">
           <a-icon slot="prefix"
@@ -62,8 +63,8 @@ export default {
       }
     },
     async Register() {
-      const data = await userRegister(this.form);
-      console.log(data);
+      const { data } = await userRegister(this.form);
+      this.$message.info(data);
     },
   },
 };

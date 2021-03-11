@@ -3,7 +3,43 @@
     <router-view />
   </div>
 </template>
+<script>
+import Timer from './utils/time';
 
+export default {
+  data() {
+    return {
+      timer: null,
+    };
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin;
+    },
+  },
+  watch: {
+    isLogin(newVal) {
+      if (newVal === true) {
+        this.timer = new Timer(this.loginOut, 30 * 1000);
+        this.timer.start();
+        ['click', 'mousedown', 'mousemove', 'mouseup'].forEach((i) => {
+          window.addEventListener(i, this.timer.reStart);
+        });
+      }
+    },
+  },
+  methods: {
+    loginOut() {
+      this.timer.stop();
+      this.$store.commit('loginOut');
+      this.$router.push('/login');
+      ['click', 'mousedown', 'mousemove', 'mouseup'].forEach((i) => {
+        window.removeEventListener(i, this.timer.reStart);
+      });
+    },
+  },
+};
+</script>
 <style lang="less">
 #app {
   width: 100%;

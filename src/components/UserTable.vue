@@ -1,13 +1,14 @@
 <template>
   <div>
     <Permission :code="'100'">
-      <a-button @click="handleFindNormalUser">获取所有用户列表</a-button>
+      <a-button @click="handleFindNormalUser">获取普通用户列表</a-button>
     </Permission>
     <Permission :code="'300'">
       <a-button @click="handleFindAllUser">获取所有用户列表</a-button>
     </Permission>
     <a-table :columns="columns"
              :data-source="data"
+             :rowKey="(record,index)=>{return index}"
              bordered>
       <template v-for="col in ['name', 'role', 'address']"
                 :slot="col"
