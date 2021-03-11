@@ -14,6 +14,11 @@ export default new Vuex.Store({
   state: {
     ...defaultUserMessage,
   },
+  getters: {
+    authlist(state) {
+      return state.authlist;
+    },
+  },
   mutations: {
     changeStateToLogin(state, { userName, role }) {
       state.userName = userName;
@@ -22,10 +27,8 @@ export default new Vuex.Store({
       state.isLogin = true;
     },
     loginOut(state) {
-      state.userName = '';
-      state.userRole = '';
-      state.authlist = [];
-      state.isLogin = false;
+      const newState = Object.assign(state, defaultUserMessage);
+      state = newState;
     },
   },
   actions: {

@@ -15,7 +15,8 @@
       <a-form-model-item>
         <a-input v-model="form.password"
                  type="password"
-                 placeholder="Password">
+                 placeholder="Password"
+                 @keydown.enter="login">
           <a-icon slot="prefix"
                   type="lock"
                   style="color:rgba(0,0,0,.25)" />

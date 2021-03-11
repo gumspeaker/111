@@ -7,6 +7,6 @@
  * 302表示可以修改用户
  * 303表示可以通过用户名查用户
  * */
-const userPermission = [100, 200];
-const adminPermission = [100, 101, 200, 300, 301, 302, 303];
+const userPermission = ['100', '200'];
+const adminPermission = ['100', '101', '200', '300', '301', '302', '303'];
 export default new Map([['user', userPermission], ['admin', adminPermission]]);

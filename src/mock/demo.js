@@ -15,6 +15,10 @@ const userList = [
   { userName: 'admin', password: 'admin', role: 'admin' },
 
 ];
+const TopFlowByTime = {
+  TopTime: '18',
+  TopFlow: 1000,
+};
 export default [
   {
     url: '/Api/user/login',
@@ -40,6 +44,38 @@ export default [
         code: 200,
         message: '操作成功',
         data: '操作成功',
+      };
+    },
+  },
+  {
+    url: '/Api/topFlow',
+    type: 'get',
+    response() {
+      return {
+        code: 200,
+        message: '操作成功',
+        data: TopFlowByTime,
+      };
+    },
+  },
+  {
+    url: '/Api/user/userList',
+    type: 'post',
+    // 可以是function也可以是其他数组
+    // res.body就是我们传入到接口的数据，我们可以在这里做些逻辑操作
+    response: ({ body }) => {
+      const { role } = body;
+      const data = [];
+      if (role === 'admin') {
+        data.push(...userList);
+      } else if (role === 'user') {
+        // 使用return返回前端需要的数据
+        data.push(...userList.filter((i) => i.role === 'user'));
+      }
+      return {
+        code: 200,
+        message: '操作成功',
+        data,
       };
     },
   },
