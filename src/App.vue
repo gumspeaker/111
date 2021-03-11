@@ -21,7 +21,7 @@ export default {
     isLogin(newVal) {
       if (newVal === true) {
         console.log(newVal);
-        this.timer = new Timer(this.loginOut, 5000);
+        this.timer = new Timer(this.loginOut, 60 * 60 * 1000);
         this.timer.start();
         ['click', 'mousedown', 'mousemove', 'mouseup'].forEach((i) => {
           // 绑定在timer

@@ -3,14 +3,33 @@
     <Permission :code="'100'">
       <a-button @click="handleFindNormalUser">获取普通用户列表</a-button>
     </Permission>
-    <Permission :code="'300'">
+    <Permission :code="'101'">
       <a-button @click="handleFindAllUser">获取所有用户列表</a-button>
+    </Permission>
+    <Permission :code="'300'">
+      <a-form-model layout="inline"
+                    :model="formData">
+        <a-form-model-item>
+          <a-input v-model="formData.username"
+                   placeholder="username" />
+        </a-form-model-item>
+        <a-form-model-item>
+          <a-input v-model="formData.password"
+                   placeholder="password" />
+        </a-form-model-item>
+        <a-button @click="handleAddUser">添加用户</a-button>
+      </a-form-model>
     </Permission>
     <a-table :columns="columns"
              :data-source="data"
              :rowKey="(record,index)=>{return index}"
              bordered>
-      <template v-for="col in ['name', 'role', 'address']"
+      <template slot="name"
+                slot-scope="text, record">
+        <editable-cell :text="text"
+                       @change="onCellChange(record.key, 'name', $event)" />
+      </template>
+      <!-- <template v-for="col in [ 'role', 'address']"
                 :slot="col"
                 slot-scope="text, record, ">
         <div :key="col">
@@ -20,34 +39,25 @@
                    @change="e => handleChange(e.target.value, record.key, col)" />
           <template v-else>
             {{ text }}
-          </template>
-        </div>
-      </template>
-      <!-- <template slot="operation"
-                slot-scope="text, record, ">
-        <Permission :any="['300','301','302','303']">
-          <div class="editable-row-operations">
-
-            <span v-if="record.editable">
-              <a @click="() => save(record.key)">Save</a>
-              <a-popconfirm title="Sure to cancel?"
-                            @confirm="() => cancel(record.key)">
-                <a>Cancel</a>
-              </a-popconfirm>
-            </span>
-            <span v-else>
-              <a :disabled="editingKey !== ''"
-                 @click="() => edit(record.key)">Edit</a>
-            </span>
-          </div>
-        </Permission>
+          </template> -->
+      <!-- </div>
       </template> -->
+      <template slot="operation"
+                v-if="record.role === 'user'"
+                slot-scope="text, record">
+        <a-popconfirm v-if="data.length"
+                      title="Sure to delete?"
+                      @confirm="() => onDelete(record)">
+          <a href="javascript:;">Delete</a>
+        </a-popconfirm>
+      </template>
     </a-table>
   </div>
 </template>
 <script>
 import Permission from './Permission.vue';
-import { FindAllUserByRole } from '../apis/userApi';
+import EditableCell from './EditableCell.vue';
+import { FindAllUserByRole, addUser, deleteUser } from '../apis/userApi';
 
 const columns = [
   {
@@ -62,11 +72,11 @@ const columns = [
     width: '25%',
     scopedSlots: { customRender: 'role' },
   },
-  // {
-  //   title: 'operation',
-  //   dataIndex: 'operation',
-  //   scopedSlots: { customRender: 'operation' },
-  // },
+  {
+    title: 'operation',
+    dataIndex: 'operation',
+    scopedSlots: { customRender: 'operation' },
+  },
 ];
 export default {
   // props: {
@@ -75,6 +85,10 @@ export default {
   data() {
     // this.cacheData = data.map((item) => ({ ...item }));
     return {
+      formData: {
+        username: '',
+        password: '',
+      },
       data: [],
       columns,
       cacheData: [],
@@ -88,8 +102,17 @@ export default {
   },
   components: {
     Permission,
+    EditableCell,
   },
   methods: {
+    async handleAddUser() {
+      const { data } = await addUser(this.formData);
+      console.log(data);
+      if (data) {
+        this.$message.info(data);
+        this.formData = { username: '', password: '' };
+      }
+    },
     async handleFindAllUser() {
       const role = this.$store.getters.userRole;
       const { data } = await FindAllUserByRole({ role });
@@ -98,6 +121,16 @@ export default {
     async handleFindNormalUser() {
       const { data } = await FindAllUserByRole({ role: 'user' });
       this.data = data;
+    },
+    async onDelete(key) {
+      const dataSource = [...this.data];
+      const deleteData = dataSource.find((item) => item.name !== key);
+      const { data } = await deleteUser(deleteData);
+      if (data) {
+        this.$message.info('删除成功');
+      } else {
+        this.$message.info('删除失败');
+      }
     },
     // handleChange(value, key, column) {
     //   const newData = [...this.data];

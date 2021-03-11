@@ -3,24 +3,24 @@ class Timer {
     this.time = time;
     this.fn = fn;
     this.timer = null;
-    this.reStart = this.reStart.bind(this);
-    this.stop = this.stop.bind(this);
+    // this.reStart = this.reStart.bind(this);
+    // this.stop = this.stop.bind(this);
   }
 
-  start() {
+  start = () => {
     this.timer = setTimeout(() => {
       this.fn.apply(this);
     }, this.time);
   }
 
-  reStart() {
+  reStart = () => {
     if (this.timer) {
       clearTimeout(this.timer);
       this.start();
     }
   }
 
-  stop() {
+  stop = () => {
     clearTimeout(this.timer);
   }
 }

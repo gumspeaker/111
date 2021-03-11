@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Permission :code="'100'">
+    <Permission :code="'200'">
       <a-button @click="hadleGetFlow">查询顶峰流量</a-button>
     </Permission>
     <span>顶峰流量时间:{{flowData.TopTime}}，顶峰流量：{{flowData.TopFlow}}</span>

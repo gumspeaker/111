@@ -61,8 +61,6 @@ export default [
   {
     url: '/Api/user/userList',
     type: 'get',
-    // 可以是function也可以是其他数组
-    // res.body就是我们传入到接口的数据，我们可以在这里做些逻辑操作
     response: ({ query }) => {
       console.log(query);
       const { role } = query;
@@ -80,6 +78,31 @@ export default [
         data,
       };
     },
+  }, {
+    url: '/Api/user',
+    type: 'post',
+    response: ({ body }) => {
+      console.log(body);
+      const { username, password } = body;
+      let data = null;
+      if (username.length === 0 || password.length === 0) {
+        return {
+          code: 200,
+          message: '操作成功',
+          data: '密码账号不能为空',
+        };
+      }
+      if (userList.some((i) => i.username === username)) {
+        data = '已经注册';
+      } else {
+        data.push({ username, password, role: 'user' });
+        data = `${username}已经注册成功`;
+      }
+      return {
+        code: 200,
+        message: '操作成功',
+        data,
+      };
+    },
   },
-  // 多个接口
 ];
